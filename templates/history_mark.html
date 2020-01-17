@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% block page-title-text %}
+历史评分
+{% endblock %}
+{% block page-content %}
+<div id="page-content ">
+    <hr class="new-section-sm bord-no">
+    <div class="row">
+        <div class="panel-body panel col-md-8">
+            <p>评分查询</p>
+            <form action="/history_mark/" method="post">
+                <div class="col-lg-7 col-lg-offset-3">
+                    <label>查询月份</label>
+                    <input type="number" max="9999" min="1000"  name="y_score" value="{{ y1 }}"  required/>
+                    <input type="number" max="12" min="1"  name="m_score" value="{{ m1 }}" required/>
+                    <input class="btn btn-mint"  type="submit" value="查询"/>
+                </div>
+                <table class="table  text-vcenter mar-top">
+                    <thead>
+                        <tr>
+                            <th class="min-w-td">编号</th>
+                            <th>姓名</th>
+                            <th>职位</th>
+                            <th>评分</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in v2 %}
+                            <tr>
+                                <td class="min-w-td">{{ v.name.id }}</td>
+                                <td><a class="btn-link">{{ v.name.name }}</a></td>
+                                <td>{{ v.name.job_title }}</td>
+                                <td>{{ v.ave_score }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+            </form>
+        </div>
+    </div>
+</div>{% endblock %}
+
+
+
+

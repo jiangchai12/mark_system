@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% block page-title-text %}
+本月评分
+{% endblock %}
+{% block page-content %}
+<div id="page-content ">
+    <hr class="new-section-sm bord-no">
+    <div class="row">
+        <div class="panel-body panel col-md-8">
+            <h4>评分表</h4>
+            <p>每个月对前一个月进行打分，每人打分只有第一次生效</p>
+            <div class="text-center"><h3>{{ y1 }}年{{ m1 }}月</h3></div>
+
+            <form action="/mark/" method="post">
+                <table class="table  text-vcenter mar-top">
+                    <input type="hidden" name="req_user_id" value="{{ request.user.id }}">
+                    <thead>
+                        <tr>
+                            <th class="min-w-td">#</th>
+                            <th>姓名</th>
+                            <th>职位</th>
+                            <th>分数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in v1 %}
+                            <tr>
+                                <td class="min-w-td"><input type="hidden" name="id_{{ v.id }}" value="{{ v.id }}">{{ v.id }}</td>
+                                <td><a class="btn-link">{{ v.name }}</a></td>
+                                <td>{{ v.job_title }}</td>
+                                <td><input type="number" style="width:120px;" max="100" min="0" name="score_{{ v.id }}" placeholder="0-100" required/></td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                <div class="text-center"><input class="btn btn-mint"  type="submit" value="提交"/></div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

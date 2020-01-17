@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+        <!--NAVBAR-->
+        <!--===================================================-->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+
+                <!--Brand logo & name-->
+                <!--================================-->
+                <div class="navbar-header">
+                    <a href="{% url 'mark' %}" class="navbar-brand">
+                        <img src="/static/img/logo.png" alt="Nifty Logo" class="brand-icon">
+                        <div class="brand-title">
+                            <span class="brand-text">小泰智能</span>
+                        </div>
+                    </a>
+                </div>
+                <!--================================-->
+                <!--End brand logo & name-->
+                <!--Navbar Dropdown-->
+                <!--================================-->
+                <div class="navbar-content">
+                    <ul class="nav navbar-top-links">
+
+                        <!--Navigation toogle button-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li class="tgl-menu-btn">
+                            <a class="mainnav-toggle" href="#">
+                                <i class="demo-pli-list-view"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <ul class="nav navbar-top-links">
+                        <li id="dropdown-user" class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                                <span class="ic-user pull-right">
+                                    <i class="demo-pli-male"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
+                                <ul class="head-list">
+                                    <li>
+                                        <a href="#"><i class="demo-pli-male icon-lg icon-fw"></i> {{ request.user.name }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="/account/login/"><i class="demo-pli-unlock icon-lg icon-fw"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!--Mega dropdown-->
+                        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                        <li class="mega-dropdown">
+                            <a href="#" class="mega-dropdown-toggle">
+                                <i class="demo-pli-layout-grid"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--================================-->
+                <!--End Navbar Dropdown-->
+            </div>
+        </header>
+        <!--===================================================-->
+        <!--END NAVBAR-->
+
+        <div class="boxed">
+
+            <!--CONTENT CONTAINER-->
+            <!--===================================================-->
+            <div id="content-container">
+
+                <div id="page-head">
+
+                    <!--Page Title-->
+                    <div id="page-title">
+                        {% block page-title %}
+                        <h1 class="page-header text-overflow">{% block page-title-text %}本月评分{% endblock %}</h1>
+                        {% endblock %}
+                    </div>
+
+                </div>
+                    <!--Page content-->
+                <!--===================================================-->
+                {% block page-content %}
+                <div id="page-content ">
+					<hr class="new-section-sm bord-no">
+                </div>
+                {% endblock %}
+            </div>
+            <!--===================================================-->
+            <!--END CONTENT CONTAINER-->
+
+            <!--MAIN NAVIGATION-->
+            <!--===================================================-->
+            <nav id="mainnav-container">
+                <div id="mainnav">
+
+                    <!--Menu-->
+                    <!--================================-->
+                    <div id="mainnav-menu-wrap">
+
+                        <div class="nano">
+                            <div class="nano-content">
+
+                                <!--Profile Widget-->
+                                <!--================================-->
+                                <div id="mainnav-profile" class="mainnav-profile">
+                                    <div class="profile-wrap text-center">
+                                        <div class="pad-btm">
+                                            <img class="img-circle img-md" src="/static/img/profile-photos/1.png" alt="Profile Picture">
+                                        </div>
+                                        <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
+                                            <span class="pull-right dropdown-toggle">
+                                                <i class="dropdown-caret"></i>
+                                            </span>
+                                            <p class="mnp-name">{{ request.user.name }}</p>
+                                            <span class="mnp-desc">{{ request.user.email }}</span>
+
+                                        </a>
+                                    </div>
+                                    <div id="profile-nav" class="collapse list-group bg-trans">
+
+                                        <a href="/account/login/" class="list-group-item">
+                                            <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                                <!--Shortcut buttons-->
+                                <!--================================-->
+                                <div id="mainnav-shortcut" class="hidden">
+{#                                    <ul class="list-unstyled shortcut-wrap">#}
+{#                                        <li class="col-xs-3" data-content="My Profile">#}
+{#                                            <a class="shortcut-grid" href="#">#}
+{#                                                <div class="icon-wrap icon-wrap-sm icon-circle bg-mint">#}
+{#                                                <i class="demo-pli-male"></i>#}
+{#                                                </div>#}
+{#                                            </a>#}
+{#                                        </li>#}
+{#                                        <li class="col-xs-3" data-content="Messages">#}
+{#                                            <a class="shortcut-grid" href="#">#}
+{#                                                <div class="icon-wrap icon-wrap-sm icon-circle bg-warning">#}
+{#                                                <i class="demo-pli-speech-bubble-3"></i>#}
+{#                                                </div>#}
+{#                                            </a>#}
+{#                                        </li>#}
+{#                                        <li class="col-xs-3" data-content="Activity">#}
+{#                                            <a class="shortcut-grid" href="#">#}
+{#                                                <div class="icon-wrap icon-wrap-sm icon-circle bg-success">#}
+{#                                                <i class="demo-pli-thunder">66666</i>#}
+{#                                                </div>#}
+{#                                            </a>#}
+{#                                        </li>#}
+{#                                        <li class="col-xs-3" data-content="Lock Screen">#}
+{#                                            <a class="shortcut-grid" href="#">#}
+{#                                                <div class="icon-wrap icon-wrap-sm icon-circle bg-purple">#}
+{#                                                <i class="demo-pli-lock-2"></i>#}
+{#                                                </div>#}
+{#                                            </a>#}
+{#                                        </li>#}
+{#                                    </ul>#}
+                                </div>
+                                <!--================================-->
+                                <!--End shortcut buttons-->
+
+                                <li class="list-divider"></li>
+                                <ul id="mainnav-menu" class="list-group">
+
+						            <li class="">
+						                <a href="{% url 'mark' %}">
+						                    <i class="demo-pli-home"></i>
+						                    <span class="menu-title">本月评分</span>
+
+						                </a>
+						            </li>
+
+						            <!--Menu list item-->
+						            <li>
+						                <a href="{% url 'history_mark' %}">
+						                    <i class="demo-pli-receipt-4"></i>
+						                    <span class="menu-title">历史评分</span>
+						                </a>
+						            </li>
+						            <!--Menu list item-->
+						            <li class="list-divider"></li>
+                                </ul>
+                                <!--Widget-->
+                                <!--================================-->
+                                <div class="mainnav-widget">
+                                    <!-- Hide the content on collapsed navigation -->
+                                    <div id="demo-wg-server" class="hide-small mainnav-widget-content">
+
+                                    </div>
+                                </div>
+                                <!--================================-->
+                                <!--End widget-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--================================-->
+                    <!--End menu-->
+
+                </div>
+            </nav>
+            <!--===================================================-->
+            <!--END MAIN NAVIGATION-->
+
+        </div>
+        <!-- FOOTER -->
+        <!--===================================================-->
+        <footer id="footer">
+            <!-- Visible when footer positions are fixed -->
+            <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+            <p class="pad-lft">&#0169; 2020 广东百事泰电子商务有限公司</p>
+
+        </footer>
+        <!--===================================================-->
+        <!-- END FOOTER -->
+    </div>
+    <!--===================================================-->
+    <!-- END OF CONTAINER -->
+
+{% endblock %}
+{% block extra-js %}
+    <script>
+        function ToggleHostList(ele) {
+            $(ele).next().toggleClass("hidden")
+        }
+        function AddCounter(ele) {
+            console.log($(ele).prop("checked"));
+            var current_counter = parseInt($("selected_host_count").text());
+            if( $(ele).prop("checked")==true){
+                $("#selected_host_count").html(current_counter+1);
+            }else{
+                $("#selected_host_count").html(current_counter-1);
+            }
+        }
+
+    </script>
+{% endblock %}
