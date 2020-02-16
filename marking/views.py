@@ -25,11 +25,13 @@ def mark(request):
         req_user_id = request.POST.get('req_user_id')
         print(req_user_id)
         req_user = models.UserProfile.objects.filter(id=req_user_id)
+        # req_user = models.IsMark.objects.filter(id=req_user_id)
         if len(req_user) is not 0:
             req_user = req_user[0]
 
-            if req_user.is_grade is False:
-                last_id = models.UserProfile.objects.all().last()
+            if req_user.is_mark_name.is_grade is False:
+                last_id = models.UserProfile.objects.all().last()  # get person total
+
                 # now_month = str(n_year) + str(n_month)
                 for id in range(1, last_id.id+1):
                     td_id = "id_" + str(id)
@@ -53,7 +55,11 @@ def mark(request):
                     else:
                         models.Mark.objects.create(name_id=td_user_id,
                                                    score=td_score,month=last_date,score_num=1,ave_score=td_score)
-                models.UserProfile.objects.filter(id=req_user_id).update(is_grade=True)
+                # user_id = models.UserProfile.objects.filter(id=req_user_id)
+                # req_user.is_mark_name.is_grade
+                # models.UserProfile.objects.filter(id=req_user_id).update(is_grade=True)
+                models.IsMark.objects.filter(name=req_user).update(is_grade=True)
+
             else:
                 print("request.user.name:",req_user.name,'已经评分过了')
         return redirect('/mark/')

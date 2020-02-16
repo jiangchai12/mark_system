@@ -7,14 +7,17 @@ class Mark(models.Model):
     ave_score = models.CharField(max_length=64, verbose_name="平均分", default=0)
     # month = models.DateField(u'评分月份', default=date.today)
     month = models.CharField(u'评分月份',max_length=32, blank=True, null=True)
+
     name = models.ForeignKey('UserProfile',blank=True, null=True, verbose_name="姓名", on_delete=models.SET_NULL)
     class Meto:
         unique_together = 'name'
     def __str__(self):
         return '<%s-%s-%s>' % (self.name.email,self.month, self.score)
-
+##
 class IsMark(models.Model):
     is_grade = models.BooleanField(default=False)
+    name = models.ManyToManyField('UserProfile', blank=True)
+    mark = models.ManyToManyField('Mark', blank=True)
     def __str__(self):
         return self.id
 
@@ -61,7 +64,7 @@ class UserProfile(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     job_title = models.CharField(max_length=64)
     # month_id = models.ForeignKey('Months',blank=True, null=True, on_delete=models.SET_NULL)
-    is_grade = models.BooleanField(default=False)
+    #is_grade = models.BooleanField(default=False)
 
     objects = UserProfileManager()
 
