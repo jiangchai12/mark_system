@@ -22,29 +22,37 @@ def mark(request):
     if request.method == 'GET':
         v1 = models.UserProfile.objects.all()
     elif request.method == 'POST':
+        # get login user id
         req_user_id = request.POST.get('req_user_id')
+        # req_user_id = 2     #test
         print(req_user_id)
-        req_user = models.UserProfile.objects.filter(id=req_user_id)
-        # req_user = models.IsMark.objects.filter(id=req_user_id)
-        if len(req_user) is not 0:
-            req_user = req_user[0]
+        is_mark_data = models.MarkDate.objects.filter(name_id=req_user_id, markdate=last_date).first()
 
-            if req_user.is_mark_name.is_grade is False:
+        if is_mark_data is not None:
+            print("user_ismark have data")
+            print("---------",is_mark_data.markdate)
+        else:
+            print("user_ismark  is None")
+
+        # if is_mark_data is not None:
+        if True:
+
+            if is_mark_data is None:
+
                 last_id = models.UserProfile.objects.all().last()  # get person total
-
                 # now_month = str(n_year) + str(n_month)
                 for id in range(1, last_id.id+1):
                     td_id = "id_" + str(id)
                     td_score = "score_" + str(id)
                     td_user_id = request.POST.get(td_id)
                     td_score = int(request.POST.get(td_score))
-
-                    mark_obj = models.Mark.objects.filter(name_id=td_user_id,month=last_date)
+                    # 取出上个月的人员分数
+                    mark_obj = models.Mark.objects.filter(name_id=td_user_id,markdate=last_date)
                     # print(len(mark_obj))
                     if len(mark_obj) is not 0:
-                        update_obj = models.Mark.objects.filter(name_id=td_user_id,month=last_date)[0]
+                        update_obj = models.Mark.objects.filter(name_id=td_user_id,markdate=last_date)[0]
 
-                        print(type(update_obj.score),type(td_score))
+                        # print(type(update_obj.score),type(td_score))  #分数表数据类型
                         update_score = update_obj.score + td_score
                         update_score_num = update_obj.score_num + 1
                         mark_id = update_obj.id
@@ -54,14 +62,18 @@ def mark(request):
                                                                       ave_score=update_ave_score)
                     else:
                         models.Mark.objects.create(name_id=td_user_id,
-                                                   score=td_score,month=last_date,score_num=1,ave_score=td_score)
-                # user_id = models.UserProfile.objects.filter(id=req_user_id)
-                # req_user.is_mark_name.is_grade
-                # models.UserProfile.objects.filter(id=req_user_id).update(is_grade=True)
-                models.IsMark.objects.filter(name=req_user).update(is_grade=True)
+                                                   score=td_score,markdate=last_date,score_num=1,ave_score=td_score)
+
+                models.MarkDate.objects.create(is_mark=True,markdate=last_date,name_id=req_user_id)
+
+                #models.MarkDate.objects.filter(name_id=req_user_id, markdate=last_date).update(is_mark=True)
 
             else:
-                print("request.user.name:",req_user.name,'已经评分过了')
+                req_name = models.UserProfile.objects.filter(id=req_user_id).first()
+                print("request.user.name:",req_name.email,'已经评分过了')
+        else:
+            req_name = models.UserProfile.objects.filter(id=req_user_id).first()
+            print("request.user.name:",req_name.email,'已经评分过了')
         return redirect('/mark/')
     return render(request, 'mark.html',{'v1': v1, 'y1': last_year, 'm1': last_month})
 
@@ -78,13 +90,13 @@ def history_mark(request):
             last_year = date.today().year
 
         last_date = str(last_year) + str(last_month)
-        v2 = models.Mark.objects.filter(month=last_date)
+        v2 = models.Mark.objects.filter(markdate=last_date)
         # return render(request, 'history_mark.html',{'v2': v2, 'y1': last_year, 'm1': last_month})
     elif request.method == 'POST':
         last_year = request.POST.get("y_score")
         last_month = request.POST.get("m_score")
         filter_date = str(last_year) + str(last_month)
-        v2 = models.Mark.objects.filter(month=filter_date)
+        v2 = models.Mark.objects.filter(markdate=filter_date)
 
     return render(request, 'history_mark.html',{'v2': v2, 'y1': last_year, 'm1': last_month})
 
